@@ -53,9 +53,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank({
       higroup = 'IncSearch', -- The color group (IncSearch is usually a nice yellow/orange)
-      timeout = 50,         -- How long the highlight lasts in milliseconds
+      timeout = 50,          -- How long the highlight lasts in milliseconds
     })
   end,
   group = highlight_group,
   pattern = '*',
 })
+
+-- Needed for the obsidian ui plugin
+vim.opt.conceallevel = 2

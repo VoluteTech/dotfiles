@@ -2,8 +2,8 @@ function ColorMyPencils(color)
   color = color or "rose-pine-moon"
   vim.cmd.colorscheme(color)
 
-  -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-  -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 end
 
 return {
@@ -28,20 +28,36 @@ return {
   --     ColorMyPencils("base16-brewer")
   --   end
   -- },
-
+  --
+  -- {
+  --   "catppuccin/nvim",
+  --   name = "catppuccin",
+  --   priority = 1000,
+  --   config = function()
+  --     require("catppuccin").setup({
+  --       flavour = "mocha",
+  --       background = {
+  --         light = "mocha",
+  --         dark = "mocha",
+  --       },
+  --     })
+  --     ColorMyPencils("catppuccin")
+  --   end
+  -- },
+  -- {
+  --   "xero/miasma.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd("colorscheme miasma")
+  --   end,
+  -- },
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    'dasupradyumna/midnight.nvim',
+    lazy = false,
     priority = 1000,
     config = function()
-      require("catppuccin").setup({
-        flavour = "mocha",
-        background = {
-          light = "mocha",
-          dark = "mocha",
-        },
-      })
-      ColorMyPencils("catppuccin")
+      ColorMyPencils("midnight")
     end
-  },
+  }
 }
