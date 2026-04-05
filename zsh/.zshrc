@@ -31,3 +31,4 @@ bindkey -s '\es' "tmux-sessionizer -s 3\n"
 
 # Ensure bob's proxy comes BEFORE other paths
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+eval "$(zoxide init zsh)"
