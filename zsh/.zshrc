@@ -31,4 +31,7 @@ bindkey -s '\es' "tmux-sessionizer -s 3\n"
 
 # Ensure bob's proxy comes BEFORE other paths
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
+
+# Being able to use steam with flatpak
+export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
 eval "$(zoxide init zsh)"

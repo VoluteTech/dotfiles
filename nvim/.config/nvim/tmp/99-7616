@@ -1,0 +1,3 @@
+/home/bakabruh/dotfiles/nvim/.config/nvim/lua/volute/lazy/lsp.lua:47:9,6,ensure_installed list - add typescript language server for Next.js
+/home/bakabruh/dotfiles/nvim/.config/nvim/lua/volute/lazy/lsp.lua:54:5,57,handlers section - add typescript language server handler for Next.js support
+/home/bakabruh/dotfiles/nvim/.config/nvim/lua/volute/lazy/lsp.lua:86:5,9,tailwindcss handler example - add similar ts_ls handler for Next.js

@@ -1,7 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    -- IMPORTANT: This provides the autocompletion for vim.api and Neovim Lua
     { "folke/lazydev.nvim", ft = "lua", opts = {} },
 
     "williamboman/mason.nvim",
@@ -21,7 +20,6 @@ return {
     local cmp = require('cmp')
     local cmp_lsp = require("cmp_nvim_lsp")
 
-    -- Sync capabilities with nvim-cmp
     local capabilities = vim.tbl_deep_extend(
       "force",
       {},
@@ -48,19 +46,18 @@ return {
         "lua_ls",
         "rust_analyzer",
         "gopls",
-        "vtsls",
+        "ts_ls",
+        "eslint",
         "tailwindcss",
-        "emmet_ls",
+        "jsonls",
       },
       handlers = {
-        -- Default handler for all servers
         function(server_name)
           require("lspconfig")[server_name].setup {
             capabilities = capabilities
           }
         end,
 
-        -- Targeted override for Lua
         ["lua_ls"] = function()
           require("lspconfig").lua_ls.setup {
             capabilities = capabilities,
@@ -84,7 +81,39 @@ return {
           }
         end,
 
-        -- Targeted override for Tailwind
+        ["ts_ls"] = function()
+          require("lspconfig").ts_ls.setup({
+            capabilities = capabilities,
+            settings = {
+              typescript = {
+                inlayHints = {
+                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                },
+              },
+              javascript = {
+                inlayHints = {
+                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                },
+              },
+            },
+            on_attach = function(client, bufnr)
+              client.server_capabilities.semanticTokensProvider = nil
+            end,
+          })
+        end,
+
         ["tailwindcss"] = function()
           require("lspconfig").tailwindcss.setup({
             capabilities = capabilities,
@@ -95,7 +124,18 @@ return {
           })
         end,
 
-        -- Targeted override for Zig (ZLS)
+        ["eslint"] = function()
+          require("lspconfig").eslint.setup({
+            capabilities = capabilities,
+            on_attach = function(_, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                command = "EslintFixAll",
+              })
+            end,
+          })
+        end,
+
         ["zls"] = function()
           require("lspconfig").zls.setup({
             capabilities = capabilities,
@@ -109,16 +149,9 @@ return {
             },
           })
         end,
-
-        ["emmet_ls"] = function()
-          require("emmet_ls").emmet_ls.setup({
-            filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
-          })
-        end
       }
     })
 
-    -- nvim-cmp Setup
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
     cmp.setup({
@@ -134,7 +167,7 @@ return {
         ["<C-Space>"] = cmp.mapping.complete(),
       }),
       sources = cmp.config.sources({
-        { name = 'lazydev', group_index = 0 }, -- This provides the vim.api completion
+        { name = 'lazydev', group_index = 0 },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'path' },
@@ -143,7 +176,6 @@ return {
       })
     })
 
-    -- Global Diagnostic Window Config
     vim.diagnostic.config({
       float = {
         focusable = false,
