@@ -37,7 +37,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.updatetime = 50
-vim.opt.colorcolumn = "120"
+vim.opt.colorcolumn = "100"
 vim.opt.scrolloff = 10
 
 -- cursor options

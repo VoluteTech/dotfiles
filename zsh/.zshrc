@@ -35,3 +35,16 @@ export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 # Being able to use steam with flatpak
 export XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:$XDG_DATA_DIRS"
 eval "$(zoxide init zsh)"
+
+# pnpm
+export PNPM_HOME="/home/bakabruh/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# Go Configuration
+export GOROOT="$HOME/.local/opt/go"
+export GOPATH="$HOME/go"
+export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
