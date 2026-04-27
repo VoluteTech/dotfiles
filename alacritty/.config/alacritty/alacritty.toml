@@ -13,7 +13,6 @@ italic = { family = "JetBrainsMonoNL Nerd Font Mono" }
 size = 18
 
 [window]
-opacity = 0.8
 padding.x = 14
 padding.y = 14
 decorations = "None"
