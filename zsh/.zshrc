@@ -48,3 +48,6 @@ esac
 export GOROOT="$HOME/.local/opt/go"
 export GOPATH="$HOME/go"
 export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
+
+# Mise config
+eval "$(mise activate zsh)"
