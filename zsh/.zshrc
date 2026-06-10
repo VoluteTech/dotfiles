@@ -29,6 +29,36 @@ bindkey -s '\et' "tmux-sessionizer -s 1\n"
 bindkey -s '\en' "tmux-sessionizer -s 2\n"
 bindkey -s '\es' "tmux-sessionizer -s 3\n"
 
+# Note taking
+note() {
+    # 1. Define your notes directory (Change this to your actual path)
+    local NOTES_DIR="$HOME/personal/vault"
+    
+    # 2. Ensure the directory exists
+    mkdir -p "$NOTES_DIR"
+
+    # 3. If an argument is passed (e.g., 'note sql-drivers'), open or create it directly
+    if [ -n "$1" ]; then
+        $EDITOR "$NOTES_DIR/$1.md"
+        return
+    fi
+
+    # 4. If NO argument is passed, open fzf to search existing notes
+    # Pressing CTRL-N inside fzf allows you to create a brand new note
+    local selected
+    selected=$(find "$NOTES_DIR" -type f -name "*.md" -printf "%P\n" | \
+        fzf --query="$1" \
+            --preview="bat --color=always --style=numbers '$NOTES_DIR/{}' 2>/dev/null || cat '$NOTES_DIR/{}'" \
+            --header="Enter: Open | Ctrl-N: Create New Note" \
+            --bind="ctrl-n:execute(read -p 'New note name: ' new_note && touch '$NOTES_DIR/\$new_note.md') + reload(find '$NOTES_DIR' -type f -name '*.md' -printf '%P\n')"
+    )
+
+    # 5. Open the selected note if the user didn't exit fzf
+    if [ -n "$selected" ]; then
+        $EDITOR "$NOTES_DIR/$selected"
+    fi
+}
+
 # Ensure bob's proxy comes BEFORE other paths
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 
