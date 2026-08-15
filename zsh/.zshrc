@@ -5,6 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.npm-global/bin:$PATH"
 
@@ -50,7 +53,7 @@ note() {
         fzf --query="$1" \
             --preview="bat --color=always --style=numbers '$NOTES_DIR/{}' 2>/dev/null || cat '$NOTES_DIR/{}'" \
             --header="Enter: Open | Ctrl-N: Create New Note" \
-            --bind="ctrl-n:execute(read -p 'New note name: ' new_note && touch '$NOTES_DIR/\$new_note.md') + reload(find '$NOTES_DIR' -type f -name '*.md' -printf '%P\n')"
+            --bind="ctrl-n:execute[read \"new_note?New note name: \" && [ -n \"\$new_note\" ] && touch \"$NOTES_DIR/\$new_note.md\"]+reload[find \"$NOTES_DIR\" -type f -name \"*.md\" -printf \"%%P\n\"]"
     )
 
     # 5. Open the selected note if the user didn't exit fzf
@@ -81,3 +84,4 @@ export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 
 # Mise config
 eval "$(mise activate zsh)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
