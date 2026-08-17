@@ -34,20 +34,22 @@ bindkey -s '\es' "tmux-sessionizer -s 3\n"
 
 # Note taking
 note() {
-    # 1. Define your notes directory (Change this to your actual path)
+    # 1. Define your notes directory
     local NOTES_DIR="$HOME/personal/vault"
     
     # 2. Ensure the directory exists
     mkdir -p "$NOTES_DIR"
 
-    # 3. If an argument is passed (e.g., 'note sql-drivers'), open or create it directly
+    # 3. Determine editor command (fallback to nvim if EDITOR is empty)
+    local ed="${EDITOR:-nvim}"
+
+    # 4. If an argument is passed (e.g., 'note sql-drivers'), open or create it directly
     if [ -n "$1" ]; then
-        $EDITOR "$NOTES_DIR/$1.md"
+        ${=ed} "$NOTES_DIR/$1.md"
         return
     fi
 
-    # 4. If NO argument is passed, open fzf to search existing notes
-    # Pressing CTRL-N inside fzf allows you to create a brand new note
+    # 5. If NO argument is passed, open fzf to search existing notes
     local selected
     selected=$(find "$NOTES_DIR" -type f -name "*.md" -printf "%P\n" | \
         fzf --query="$1" \
@@ -56,9 +58,9 @@ note() {
             --bind="ctrl-n:execute[read \"new_note?New note name: \" && [ -n \"\$new_note\" ] && touch \"$NOTES_DIR/\$new_note.md\"]+reload[find \"$NOTES_DIR\" -type f -name \"*.md\" -printf \"%%P\n\"]"
     )
 
-    # 5. Open the selected note if the user didn't exit fzf
+    # 6. Open the selected note if the user didn't exit fzf
     if [ -n "$selected" ]; then
-        $EDITOR "$NOTES_DIR/$selected"
+        ${=ed} "$NOTES_DIR/$selected"
     fi
 }
 
