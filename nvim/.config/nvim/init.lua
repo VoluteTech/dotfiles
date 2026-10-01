@@ -20,10 +20,12 @@ vim.pack.add({
   { src = "https://github.com/hrsh7th/cmp-buffer" },
   { src = "https://github.com/hrsh7th/cmp-path" },
   { src = "https://github.com/L3MON4D3/LuaSnip" },
+  { src = "https://github.com/saadparwaiz1/cmp_luasnip" },
   { src = "https://github.com/vieitesss/miniharp.nvim" },
   { src = "https://github.com/VoluteTech/manuscript.nvim" },
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+
   -- { src = "https://github.com/MunifTanjim/nui.nvim" },
   -- { src = "https://github.com/nvim-neorg/lua-utils.nvim" },
   -- { src = "https://github.com/nvim-neotest/nvim-nio" },

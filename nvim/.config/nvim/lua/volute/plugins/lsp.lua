@@ -1,6 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = { "ts_ls", "gopls", "lua_ls", "tailwindcss" },
+  ensure_installed = { "ts_ls", "gopls", "lua_ls", "tailwindcss", "emmet_ls" },
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -60,7 +60,21 @@ vim.lsp.config('sqls', {
   capabilities = capabilities,
 })
 
-vim.lsp.enable({ 'lua_ls', 'gopls', 'ts_ls', 'tailwindcss', 'sqls' })
+vim.lsp.config('emmet_ls', {
+  capabilities = capabilities,
+  filetypes = { "html", "css", "typescriptreact", "javascriptreact", "markdown" },
+  init_options = {
+    html = {
+      options = {
+        ["output.selfClosingStyle"] = "xhtml",
+      },
+    },
+    showExpandedAbbreviation = "always",
+    showAbbreviationSuggestions = true,
+  },
+})
+
+vim.lsp.enable({ 'lua_ls', 'gopls', 'ts_ls', 'tailwindcss', 'sqls', 'emmet_ls' })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
@@ -70,6 +84,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+    vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+    vim.keymap.set("n", "[d", function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, opts)
+    vim.keymap.set("n", "]d", function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, opts)
   end,
 })
 
@@ -82,7 +104,7 @@ vim.diagnostic.config({
         focusable = false,
         style = "minimal",
         border = "rounded",
-        source = "always",
+        source = true,
         header = "",
         prefix = "",
     },
@@ -94,16 +116,8 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
 end
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local opts = { buffer = args.buf }
+vim.keymap.set("n", "<leader>lx", function()
+  local current = vim.diagnostic.config().virtual_text
+  vim.diagnostic.config({ virtual_text = not current })
+end, { desc = "Toggle diagnostic" })
 
-    vim.keymap.set("n", "[d", function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end, opts)
-
-    vim.keymap.set("n", "]d", function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end, opts)
-  end,
-})

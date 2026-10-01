@@ -15,6 +15,9 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 -- search settings
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -31,6 +34,8 @@ vim.opt.backspace = "indent,eol,start"
 
 -- clipboard
 vim.opt.clipboard:append("unnamedplus")
+
+vim.opt.isfname:append("@-@")
 
 -- split windows
 vim.opt.splitright = true
