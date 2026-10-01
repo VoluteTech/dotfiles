@@ -87,3 +87,7 @@ export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
 # Mise config
 eval "$(mise activate zsh)"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
