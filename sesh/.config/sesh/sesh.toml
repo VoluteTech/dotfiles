@@ -1,0 +1,26 @@
+cache = false
+
+[[wildcard]]
+pattern = "~/**"
+startup_command = "spf"
+windows = ["vim", "pi"]
+
+[[session]]
+name = "nvimconf"
+path = "~/.config/nvim"
+startup_command = "nvim ."
+windows = ["vim", "pi"]
+
+[[session]]
+name = "dotfiles"
+path = "~/dotfiles"
+startup_command = "nvim ."
+windows = ["vim", "pi"]
+
+[[window]]
+name = "vim"
+startup_script = "vim"
+
+[[window]]
+name = "pi"
+startup_script = "pi"
