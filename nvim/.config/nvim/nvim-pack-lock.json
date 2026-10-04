@@ -36,6 +36,10 @@
       "rev": "12ddd182d9efbdc848b540f16484a583d52da0fb",
       "src": "https://github.com/williamboman/mason.nvim"
     },
+    "mini.nvim": {
+      "rev": "65d615e1f78775323bfd4651f694824256e2adc1",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
     "miniharp.nvim": {
       "rev": "5e32e29c23cb4ec41995482e567011538a175619",
       "src": "https://github.com/vieitesss/miniharp.nvim"

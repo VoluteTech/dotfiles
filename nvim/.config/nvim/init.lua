@@ -25,6 +25,7 @@ vim.pack.add({
   { src = "https://github.com/VoluteTech/manuscript.nvim" },
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
+  { src = "https://github.com/nvim-mini/mini.nvim" },
 
   -- { src = "https://github.com/MunifTanjim/nui.nvim" },
   -- { src = "https://github.com/nvim-neorg/lua-utils.nvim" },
@@ -40,7 +41,7 @@ vim.cmd.packadd("nvim.difftool")
 -- Plugins configs
 require("volute.plugins.colorscheme")
 require("volute.plugins.oil")
-require("volute.plugins.telescope")
+-- require("volute.plugins.telescope")
 require("volute.plugins.treesitter")
 require("volute.plugins.supermaven")
 require("volute.plugins.fugitive")
@@ -49,4 +50,7 @@ require("volute.plugins.cmp")
 require("volute.plugins.miniharp")
 require("volute.plugins.manuscript")
 require("volute.plugins.markdown")
+require("volute.plugins.minicmdline")
+require("volute.plugins.minisurround")
+require("volute.plugins.minipick")
 -- require("volute.plugins.neorg")
